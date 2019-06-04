@@ -1,0 +1,25 @@
+{
+    "name": "rsantellan/maith-translator",
+    "type": "symfony-bundle",
+    "description": "This is a basic translations interface for projects",
+    "keywords": ["admin", "bundle", "translations"],
+    "homepage": "https://github.com/rsantellan/s4-maith-translator",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Rodrigo Santellan",
+            "email": "rsantellan@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.2"
+    },
+    "require-dev": {
+        "symfony/framework-bundle": "2.3.*"
+    },
+    "autoload": {
+        "psr-0": { "Maith\\Common\\TranslatorBundle": "" }
+    },
+    "minimum-stability": "dev",
+    "target-dir": "Maith/Common/TranslatorBundle"
+}

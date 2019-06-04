@@ -1,0 +1,16 @@
+maith_common_translator_homepage:
+    path:  /admin/translator.html
+    defaults: { _controller: MaithCommonTranslatorBundle:Default:index }
+    
+maith_common_translator_get_tranlations:
+    path:  /admin/get-translation.html
+    defaults: { _controller: MaithCommonTranslatorBundle:Default:getTranslation }
+    methods:  [POST, PUT]
+
+maith_common_translator_set_tranlations:
+    path:  /admin/set-translation.html
+    defaults: { _controller: MaithCommonTranslatorBundle:Default:setTranslation }    
+
+maith_common_translator_clear_cache:
+    path:  /admin/clear-translation.html
+    defaults: { _controller: MaithCommonTranslatorBundle:Default:clearTranslationCache }
