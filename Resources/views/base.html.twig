@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>{% block title %}Maith Translation UI{% endblock %}</title>
+        <link rel="stylesheet" type="text/css" media="screen" href="{{ asset("bundles/maithcommontranslator/css/bootstrap.css") }}" />
+        <link rel="stylesheet" type="text/css" media="screen" href="{{ asset("bundles/maithcommontranslator/css/layout.css") }}" />
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+        {% block topjavascripts %}{% endblock %}
+    </head>
+    <body>
+        <div class="topbar">
+            <div class="topbar-inner">
+                <div class="container">
+                    <h3><a href="{{ path("maith_translation_index") }}" class="logo">Maith Translation UI</a></h3>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            {% block body %}{% endblock %}
+        </div>
+
+        {% block javascripts %}
+        <script language="javascript" type="text/javascript" src="{{ asset("bundles/maithcommontranslator/js/jquery.js") }}"></script>
+        <script language="javascript" type="text/javascript" src="{{ asset("bundles/maithcommontranslator/js/trunk8.js") }}"></script>
+        <script type="text/javascript" src="{{ asset("bundles/maithcommontranslator/js/jms.js") }}"></script>
+        {% endblock %}
+    </body>
+</html>
