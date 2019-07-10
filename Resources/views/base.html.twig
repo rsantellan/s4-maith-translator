@@ -1,29 +1,51 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en" class="h-100">
     <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>{% block title %}Maith Translation UI{% endblock %}</title>
-        <link rel="stylesheet" type="text/css" media="screen" href="{{ asset("bundles/maithcommontranslator/css/bootstrap.css") }}" />
+        <link rel="stylesheet" type="text/css" media="screen" href="{{ asset("bundles/maithcommontranslator/css/bootstrap.min.css") }}" />
         <link rel="stylesheet" type="text/css" media="screen" href="{{ asset("bundles/maithcommontranslator/css/layout.css") }}" />
+        <link rel="stylesheet" type="text/css" media="screen" href="{{ asset("bundles/maithcommontranslator/css/toastr.min.css") }}" />
+
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
         {% block topjavascripts %}{% endblock %}
     </head>
-    <body>
-        <div class="topbar">
-            <div class="topbar-inner">
-                <div class="container">
-                    <h3><a href="{{ path("maith_translation_index") }}" class="logo">Maith Translation UI</a></h3>
+    <body class="d-flex flex-column h-100">
+        <header>
+            <!-- Fixed navbar -->
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('maith_admin_homepage') }}">Admin</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{ path("maith_translation_index") }}">Maith Translation UI</a>
+                        </li>
+                    </ul>
                 </div>
-            </div>
-        </div>
-        <div class="container">
+            </nav>
+        </header>
+
+        <main role="main" class="flex-shrink-0">
+            <div class="container">
             {% block body %}{% endblock %}
-        </div>
+            </div>
+        </main>
 
         {% block javascripts %}
-        <script language="javascript" type="text/javascript" src="{{ asset("bundles/maithcommontranslator/js/jquery.js") }}"></script>
+        <script language="javascript" type="text/javascript" src="{{ asset("bundles/maithcommontranslator/js/jquery-3.0.0.min.js") }}"></script>
+        <script language="javascript" type="text/javascript" src="{{ asset("bundles/maithcommontranslator/js/popper.min.js") }}"></script>
+        <script language="javascript" type="text/javascript" src="{{ asset("bundles/maithcommontranslator/js/bootstrap.min.js") }}"></script>
         <script language="javascript" type="text/javascript" src="{{ asset("bundles/maithcommontranslator/js/trunk8.js") }}"></script>
-        <script type="text/javascript" src="{{ asset("bundles/maithcommontranslator/js/jms.js") }}"></script>
+        <script language="javascript" type="text/javascript" src="{{ asset("bundles/maithcommontranslator/js/translator.js") }}"></script>
+        <script language="javascript" type="text/javascript" src="{{ asset("bundles/maithcommontranslator/js/toastr.min.js") }}"></script>
+        <script language="javascript" type="text/javascript" src="{{ asset('bundles/maithcommonadmin/js/ckeditor/ckeditor.js') }}"></script>
         {% endblock %}
     </body>
 </html>

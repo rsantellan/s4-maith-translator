@@ -5,65 +5,99 @@
     <script language="javascript" type="text/javascript">
         var updateMessagePath = {{ path("jms_translation_update_message", {"config": selectedConfig, "domain": selectedDomain, "locale": selectedLocale})|json_encode|raw }};
         var isWritable        = {{ isWriteable is same as(true) ? 'true' : 'false' }};
-        var JMS               = new JMSTranslationManager(updateMessagePath, isWritable);
-
-        JMS.ready();
+        var fileBrowser       = '{{ path('maith_admin_wyswyg_media_browser') }}';
+        var MaithTranslator   = new MaithTranslationManager(updateMessagePath, isWritable, fileBrowser);
+        MaithTranslator.ready();
+        //MaithTranslator.initializeTextArea('resetting.email.subject');
     </script>
 {% endblock %}
 
 {% block body %}
+    <div class="row justify-content-md-center">
+        <div class="col"></div>
+        <div class="col-6">
+            <form id="config" action="{{ path("maith_translation_index") }}" method="get">
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <select id="config" name="config" class="span3">
+                            {% for config in configs %}
+                                <option value="{{ config }}"{% if config == selectedConfig %} selected="selected"{% endif %}>{{ config }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <select id="domain" name="domain" class="span3">
+                            {% for domain in domains %}
+                                <option value="{{ domain }}"{% if domain == selectedDomain %} selected="selected"{% endif %}>{{ domain }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <select id="locale" name="locale" class="span2">
+                            {% for locale in locales %}
+                                <option value="{{ locale }}"{% if locale == selectedLocale %} selected="selected"{% endif %}>{{ locale }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <button type="submit" class="btn btn-primary pull-right">Cambiar</button>
+                    </div>
+                    <div class="form-group col-md-3">
+                    </div>
+                </div>
 
-    <form id="config" action="{{ path("maith_translation_index") }}" method="get">
-        <select name="config" class="span3">
-            {% for config in configs %}
-            <option value="{{ config }}"{% if config == selectedConfig %} selected="selected"{% endif %}>{{ config }}</option>
-            {% endfor %}
-        </select>
+            </form>
+        </div>
+        <div class="col"></div>
+    </div>
 
-        <select name="domain" class="span3">
-            {% for domain in domains %}
-            <option value="{{ domain }}"{% if domain == selectedDomain %} selected="selected"{% endif %}>{{ domain }}</option>
-            {% endfor %}
-        </select>
-
-        <select name="locale" class="span2">
-            {% for locale in locales %}
-            <option value="{{ locale }}"{% if locale == selectedLocale %} selected="selected"{% endif %}>{{ locale }}</option>
-            {% endfor %}
-        </select>
-    </form>
 
     {% if isWriteable is same as(false) %}
-    <div class="alert-message error">
-        The translation file "<strong>{{ file }}</strong>" is not writable.
+    <div class="row">
+        <div class="alert-message error">
+            The translation file "<strong>{{ file }}</strong>" is not writable.
+        </div>
     </div>
     {% endif %}
 
     {% if "xliff" != format %}
-    <div class="alert-message warning">
-        Due to limitations of the different loaders/dumpers, some features are unfortunately limited to the XLIFF format.
+    <div class="row">
+        <div class="alert-message warning">
+            Due to limitations of the different loaders/dumpers, some features are unfortunately limited to the XLIFF format.
+            <br /><br />
+            However, you can easily convert your existing translation files to the XLIFF format by running:<br />
+            <code>php app/console translation:extract {{ selectedLocale }} --config={{ selectedConfig }} --output-format=xliff</code>
+        </div>
+    </div>
+    {% endif %}
+    <div class="row">
+        <h2>Available Messages</h2>
+        <h3>
+            Filter messages by Id
+            <input id="filter" placeholder="Enter a key to filter the entries." title="A wildcard/regexp-search for '*your_key*' will be done. You can also use the '.' as 1-char wildcard, '.*' as wildcard for 0-n chars. Search the web for 'JS Regex Documentation' for more information about regular expressions."/>
+        </h3>
+    </div>
 
-        <br /><br />
-
-        However, you can easily convert your existing translation files to the XLIFF format by running:<br />
-        <code>php app/console translation:extract {{ selectedLocale }} --config={{ selectedConfig }} --output-format=xliff</code>
+    {% if newMessages is not empty %}
+    <div class="row">
+        <div class="col-12">
+            <h3>New Messages</h3>
+            {% include "@MaithCommonTranslator/Translate/messages.html.twig" with {"messages": newMessages} %}
+        </div>
     </div>
     {% endif %}
 
-    <h2>Available Messages</h2>
-	<h3>
-		Filter messages by Id
-		<input id="filter" placeholder="Enter a key to filter the entries." title="A wildcard/regexp-search for '*your_key*' will be done. You can also use the '.' as 1-char wildcard, '.*' as wildcard for 0-n chars. Search the web for 'JS Regex Documentation' for more information about regular expressions."/>
-	</h3>
-
-    {% if newMessages is not empty %}
-    <h3>New Messages</h3>
-    {% include "@MaithCommonTranslator/Translate/messages.html.twig" with {"messages": newMessages} %}
-    {% endif %}
-
     {% if existingMessages is not empty %}
-    <h3>Existing Messages</h3>
-    {% include "@MaithCommonTranslator/Translate/messages.html.twig" with {"messages": existingMessages} %}
+    <div class="row">
+        <div class="col-12">
+            <h3>Existing Messages</h3>
+            {% include "@MaithCommonTranslator/Translate/messages.html.twig" with {"messages": existingMessages} %}
+        </div>
+    </div>
     {% endif %}
 
 {% endblock %}
