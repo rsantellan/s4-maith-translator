@@ -49,7 +49,6 @@
                     <div class="form-group col-md-3">
                     </div>
                 </div>
-
             </form>
         </div>
         <div class="col"></div>
@@ -58,11 +57,17 @@
 
     {% if isWriteable is same as(false) %}
     <div class="row">
-        <div class="alert-message error">
+        <div class="alert alert-error">
             The translation file "<strong>{{ file }}</strong>" is not writable.
         </div>
     </div>
     {% endif %}
+
+        <div class="row">
+            <div class="alert alert-warning">
+                <button type="button" class="btn btn-warning pull-right" onclick="return MaithTranslator.clearCache('{{ path('maith_admin_clear_translation') }}');">Impactar textos</button>
+            </div>
+        </div>
 
     {% if "xliff" != format %}
     <div class="row">
@@ -75,17 +80,17 @@
     </div>
     {% endif %}
     <div class="row">
-        <h2>Available Messages</h2>
+        <h2>Mensajes disponibles</h2>
         <h3>
-            Filter messages by Id
-            <input id="filter" placeholder="Enter a key to filter the entries." title="A wildcard/regexp-search for '*your_key*' will be done. You can also use the '.' as 1-char wildcard, '.*' as wildcard for 0-n chars. Search the web for 'JS Regex Documentation' for more information about regular expressions."/>
+            Filtrar por identificador
+            <input id="filter" placeholder="Presiona una tecla para empezar a filtrar." title="A wildcard/regexp-search for '*your_key*' will be done. You can also use the '.' as 1-char wildcard, '.*' as wildcard for 0-n chars. Search the web for 'JS Regex Documentation' for more information about regular expressions."/>
         </h3>
     </div>
 
     {% if newMessages is not empty %}
     <div class="row">
         <div class="col-12">
-            <h3>New Messages</h3>
+            <h3>Nuevos mensajes</h3>
             {% include "@MaithCommonTranslator/Translate/messages.html.twig" with {"messages": newMessages} %}
         </div>
     </div>
@@ -94,10 +99,9 @@
     {% if existingMessages is not empty %}
     <div class="row">
         <div class="col-12">
-            <h3>Existing Messages</h3>
+            <h3>Mensajes</h3>
             {% include "@MaithCommonTranslator/Translate/messages.html.twig" with {"messages": existingMessages} %}
-        </div>
-    </div>
+        </div>    </div>
     {% endif %}
 
 {% endblock %}

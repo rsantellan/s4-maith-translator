@@ -166,6 +166,28 @@ function MaithTranslationManager(updateMessagePath, isWritable, fileBrowser) {
         return true;
     };
 
+    this.clearCache = function(url)
+    {
+        $.ajax({
+            url: url,
+            dataType: 'json',
+            success: function(json){
+                if(json.result || json.result == 'true')
+                {
+                    toastr.success(json.message);
+                }
+                else
+                {
+                    toastr.error(json.message);
+                }
+            },
+            complete: function()
+            {
+            }
+        });
+        return false;
+    };
+
     this.saveTextArea = function(object, identifier)
     {
         var $textarea = $('textarea[name="'+identifier + '"]');

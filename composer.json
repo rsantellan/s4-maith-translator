@@ -13,7 +13,8 @@
     ],
     "require": {
         "php": ">=7.1.3",
-        "jms/translation-bundle": "1.4.4"
+        "jms/translation-bundle": "1.4.4",
+        "rsantellan/maith-admin": "*"
     },
     "require-dev": {
         "symfony/framework-bundle": "4.3.*"
